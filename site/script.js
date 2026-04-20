@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const GAS_URL = ''; // cole aqui a URL /exec do Google Apps Script depois do deploy
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbwyCx0bl6r2wZprDmaCRFOQr32D-Q-DTTMiqF5XI-jp_ulVJqk0lJ94yhk4a4QXwak_Aw/exec';
   const PDF_PATH = 'assets/codigo-do-merecimento.pdf';
 
   const modal = document.getElementById('formModal');
