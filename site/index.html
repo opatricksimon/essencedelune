@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
 
@@ -35,22 +35,56 @@
 
 <section class="guide" id="guia">
   <div class="guide__wrap">
-    <div class="guide__img guide__img--duo">
-      <img src="assets/guia-riqueza-mockup.png" alt="Mockup do guia O Codigo da Riqueza" loading="lazy">
-      <img src="assets/guide-mockup.png" alt="Mockup do guia O Codigo do Merecimento" loading="lazy">
-    </div>
-    <div class="guide__text">
+    <div class="guide__head reveal">
       <p class="eyebrow eyebrow--gold">2 guias gratuitos &middot; PDF</p>
-      <h2><span class="shine-gold">Codigo da Riqueza</span> &amp; <span class="shine-gold">Codigo do Merecimento</span></h2>
-      <p class="lead">Dois rituais pr&aacute;ticos para preparar o campo, usar o aroma como &acirc;ncora e sustentar a sua frequ&ecirc;ncia dentro de casa &mdash; um para ativar a <strong>abund&acirc;ncia</strong>, outro para ancorar o <strong>merecimento</strong>.</p>
-      <ul class="benefits">
-        <li><span class="dot"></span><span><strong>Prepare o campo em 3 gestos:</strong> limpeza, &aacute;gua e escrita de inten&ccedil;&atilde;o.</span></li>
-        <li><span class="dot"></span><span><strong>Use o aroma como &acirc;ncora</strong> para o seu momento de presen&ccedil;a.</span></li>
-        <li><span class="dot"></span><span><strong>Transforme o incenso em ritual,</strong> n&atilde;o em decora&ccedil;&atilde;o autom&aacute;tica.</span></li>
-        <li><span class="dot"></span><span><strong>Sustente a frequ&ecirc;ncia</strong> com const&acirc;ncia e delicadeza no cotidiano.</span></li>
-      </ul>
-      <button class="btn btn--primary" data-open-form>Quero os 2 guias agora</button>
-      <p class="mini">Entrega imediata. Sem custo. Sem spam.</p>
+      <h2>Dois rituais, dois <span class="shine-gold">c&oacute;digos.</span></h2>
+      <p class="guide__lead">Cada guia &eacute; um protocolo curto e pr&aacute;tico para usar o aroma como &acirc;ncora de presen&ccedil;a &mdash; um para ativar a <strong>abund&acirc;ncia</strong>, outro para ancorar o <strong>merecimento</strong>. Baixe o que falar com voc&ecirc;. Ou os dois.</p>
+    </div>
+
+    <div class="guide__grid">
+
+      <article class="guide-card reveal">
+        <div class="guide-card__media">
+          <div class="guide-card__tilt" data-tilt>
+            <img src="assets/guia-riqueza-mockup.png" alt="Guia O C&oacute;digo da Riqueza" loading="lazy">
+            <span class="guide-card__glare" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="guide-card__body">
+          <p class="eyebrow eyebrow--gold">Guia 01 &middot; Abund&acirc;ncia</p>
+          <h3>O C&oacute;digo da Riqueza</h3>
+          <p class="guide-card__desc">Um protocolo pr&aacute;tico de reprograma&ccedil;&atilde;o de cren&ccedil;as e ativa&ccedil;&atilde;o da prosperidade &mdash; para preparar o campo, abrir caminho e ancorar a frequ&ecirc;ncia da abund&acirc;ncia no espa&ccedil;o onde voc&ecirc; vive.</p>
+          <ul class="guide-card__points">
+            <li><span class="dot"></span><span>Reprograme cren&ccedil;as que travam a abund&acirc;ncia</span></li>
+            <li><span class="dot"></span><span>Ative a frequ&ecirc;ncia da prosperidade com o aroma</span></li>
+            <li><span class="dot"></span><span>Ritual de abertura de caminhos em 3 gestos</span></li>
+          </ul>
+          <button class="btn btn--primary btn--full" data-open-form data-guide="riqueza">Receber o C&oacute;digo da Riqueza</button>
+          <p class="guide-card__mini">PDF gratuito &middot; download imediato</p>
+        </div>
+      </article>
+
+      <article class="guide-card reveal">
+        <div class="guide-card__media">
+          <div class="guide-card__tilt" data-tilt>
+            <img src="assets/guide-mockup.png" alt="Guia O C&oacute;digo do Merecimento" loading="lazy">
+            <span class="guide-card__glare" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="guide-card__body">
+          <p class="eyebrow eyebrow--gold">Guia 02 &middot; Merecimento</p>
+          <h3>O C&oacute;digo do Merecimento</h3>
+          <p class="guide-card__desc">Ancoragem sensorial e reprograma&ccedil;&atilde;o de espa&ccedil;o para sustentar, dentro de casa, a verdade de que merecer n&atilde;o se pede &mdash; se aceita.</p>
+          <ul class="guide-card__points">
+            <li><span class="dot"></span><span>Ancore o merecimento como experi&ecirc;ncia sensorial</span></li>
+            <li><span class="dot"></span><span>Reprograme o espa&ccedil;o onde voc&ecirc; vive</span></li>
+            <li><span class="dot"></span><span>Ritual di&aacute;rio de presen&ccedil;a e aceita&ccedil;&atilde;o</span></li>
+          </ul>
+          <button class="btn btn--primary btn--full" data-open-form data-guide="merecimento">Receber o C&oacute;digo do Merecimento</button>
+          <p class="guide-card__mini">PDF gratuito &middot; download imediato</p>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
@@ -191,9 +225,9 @@
     <button class="modal__close" aria-label="Fechar" data-close-form>&times;</button>
 
     <div class="modal__state modal__state--form">
-      <p class="eyebrow eyebrow--gold">2 guias gratuitos</p>
+      <p class="eyebrow eyebrow--gold" id="formEyebrow">2 guias gratuitos</p>
       <h3 id="modalTitle">Codigo da Riqueza &amp; Merecimento</h3>
-      <p class="modal__sub">Preencha os campos abaixo para liberar os 2 PDFs agora.</p>
+      <p class="modal__sub" id="formSub">Preencha os campos abaixo para liberar os 2 PDFs agora.</p>
       <form id="leadForm" novalidate>
         <label>
           <span>Nome</span>
@@ -207,7 +241,7 @@
           <span>WhatsApp</span>
           <input type="tel" name="telefone" required autocomplete="tel" placeholder="(00) 00000-0000">
         </label>
-        <button type="submit" class="btn btn--primary btn--full">Liberar meus guias</button>
+        <button type="submit" class="btn btn--primary btn--full" id="formSubmit">Liberar meus guias</button>
         <p class="modal__mini">O download &eacute; liberado imediatamente ap&oacute;s o envio.</p>
       </form>
     </div>
@@ -219,10 +253,9 @@
 
     <div class="modal__state modal__state--success" hidden>
       <div class="success-icon" aria-hidden="true">&#10003;</div>
-      <h3>Seus guias foram liberados.</h3>
-      <p>Clique para baixar cada PDF e comece os rituais com mais presen&ccedil;a e clareza.</p>
-      <a class="btn btn--primary btn--full" href="assets/codigo-da-riqueza.pdf" download>Baixar o Codigo da Riqueza</a>
-      <a class="btn btn--gold btn--full modal__dl-second" href="assets/codigo-do-merecimento.pdf" download>Baixar o Codigo do Merecimento</a>
+      <h3 id="successTitle">Tudo certo!</h3>
+      <p id="successSub">Clique para baixar e comece o ritual com mais presen&ccedil;a e clareza.</p>
+      <div class="modal__downloads" id="modalDownloads"></div>
       <p class="modal__mini">Se quiser conhecer os incensos, fale com a Nicaele no Instagram ou no WhatsApp.</p>
     </div>
 
@@ -235,6 +268,6 @@
   </div>
 </div>
 
-<script src="script.js" defer></script>
+<script src="script.js?v=2" defer></script>
 </body>
 </html>
