@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbwyCx0bl6r2wZprDmaCRFOQr32D-Q-DTTMiqF5XI-jp_ulVJqk0lJ94yhk4a4QXwak_Aw/exec';
-  const PDF_PATH = 'assets/codigo-do-merecimento.pdf';
+  const LEADS_API_URL = '/api/leads';
+  const PDF_PATHS = ['assets/codigo-da-riqueza.pdf', 'assets/codigo-do-merecimento.pdf'];
 
   const modal = document.getElementById('formModal');
   const form = document.getElementById('leadForm');
@@ -19,7 +19,9 @@
   let lastFocus = null;
 
   function showState(name) {
-    Object.entries(states).forEach(([k, el]) => { el.hidden = k !== name; });
+    Object.entries(states).forEach(([key, element]) => {
+      element.hidden = key !== name;
+    });
   }
 
   function openModal() {
@@ -27,52 +29,66 @@
     modal.hidden = false;
     document.body.style.overflow = 'hidden';
     showState('form');
+
     setTimeout(() => {
-      const first = form.querySelector('input[name="nome"]');
-      if (first) first.focus();
+      const firstInput = form.querySelector('input[name="nome"]');
+      if (firstInput) firstInput.focus();
     }, 120);
   }
 
   function closeModal() {
     modal.hidden = true;
     document.body.style.overflow = '';
-    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+
+    if (lastFocus && typeof lastFocus.focus === 'function') {
+      lastFocus.focus();
+    }
   }
 
-  document.querySelectorAll('[data-open-form]').forEach(btn => {
-    btn.addEventListener('click', openModal);
+  document.querySelectorAll('[data-open-form]').forEach((button) => {
+    button.addEventListener('click', openModal);
   });
-  document.querySelectorAll('[data-close-form]').forEach(btn => {
-    btn.addEventListener('click', closeModal);
+
+  document.querySelectorAll('[data-close-form]').forEach((button) => {
+    button.addEventListener('click', closeModal);
   });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && !modal.hidden) closeModal();
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !modal.hidden) closeModal();
   });
-  document.querySelectorAll('[data-retry]').forEach(btn => {
-    btn.addEventListener('click', () => showState('form'));
+
+  document.querySelectorAll('[data-retry]').forEach((button) => {
+    button.addEventListener('click', () => showState('form'));
   });
 
   const telInput = form.querySelector('input[name="telefone"]');
-  telInput.addEventListener('input', (e) => {
-    let v = e.target.value.replace(/\D/g, '').slice(0, 11);
-    if (v.length > 10) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-    else if (v.length > 6) v = `(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`;
-    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
-    else if (v.length > 0) v = `(${v}`;
-    e.target.value = v;
+  telInput.addEventListener('input', (event) => {
+    let value = event.target.value.replace(/\D/g, '').slice(0, 11);
+
+    if (value.length > 10) value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+    else if (value.length > 6) value = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6)}`;
+    else if (value.length > 2) value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+    else if (value.length > 0) value = `(${value}`;
+
+    event.target.value = value;
   });
 
   function triggerDownload() {
-    const a = document.createElement('a');
-    a.href = PDF_PATH;
-    a.download = 'codigo-do-merecimento.pdf';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    PDF_PATHS.forEach((path, index) => {
+      setTimeout(() => {
+        const link = document.createElement('a');
+        link.href = path;
+        link.download = path.split('/').pop();
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      }, index * 800);
+    });
   }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
     const data = {
       nome: form.nome.value.trim(),
       email: form.email.value.trim(),
@@ -82,33 +98,38 @@
       userAgent: navigator.userAgent
     };
 
-    if (!data.nome || !data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    if (!data.nome || !data.email || !data.telefone || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      form.reportValidity();
       return;
     }
 
     showState('loading');
 
     try {
-      if (GAS_URL) {
-        await fetch(GAS_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(data)
-        });
-      } else {
-        console.warn('[Essence de Lune] GAS_URL não configurada — lead não foi salvo em Sheets.');
+      const response = await fetch(LEADS_API_URL, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result || result.ok !== true) {
+        const message = result && result.error ? result.error : `Erro HTTP ${response.status}`;
+        throw new Error(message);
       }
 
       setTimeout(triggerDownload, 500);
-
+      form.reset();
       showState('success');
 
       if (window.dataLayer) window.dataLayer.push({ event: 'lead_capture', source: 'instagram' });
       if (typeof window.fbq === 'function') window.fbq('track', 'Lead');
-
-    } catch (err) {
-      console.error('Erro ao enviar lead:', err);
+    } catch (error) {
+      console.error('Erro ao enviar lead:', error);
       showState('error');
     }
   });
